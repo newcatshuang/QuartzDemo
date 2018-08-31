@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
 
-namespace App1
+namespace QuartzApp
 {
     class Program
     {
