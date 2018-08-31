@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzApp", "QuartzApp\QuartzApp.csproj", "{D74BCD28-8EBA-4157-A1D1-F79A50DB553B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangFireApp", "HangFireApp\HangFireApp.csproj", "{4F748F4E-6853-4A63-B3AC-256B93409464}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D74BCD28-8EBA-4157-A1D1-F79A50DB553B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D74BCD28-8EBA-4157-A1D1-F79A50DB553B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D74BCD28-8EBA-4157-A1D1-F79A50DB553B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F748F4E-6853-4A63-B3AC-256B93409464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F748F4E-6853-4A63-B3AC-256B93409464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F748F4E-6853-4A63-B3AC-256B93409464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F748F4E-6853-4A63-B3AC-256B93409464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
