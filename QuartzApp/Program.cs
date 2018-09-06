@@ -65,7 +65,14 @@ namespace QuartzApp
     {
         public Task Execute(IJobExecutionContext context)
         {
-            return Task.Run(() => Console.WriteLine($"hello world at time {DateTime.Now}"));
+            try
+            {
+                return Task.Run(() => Console.WriteLine($"hello world at time {DateTime.Now}"));
+            }
+            catch (JobExecutionException ex)
+            {
+                throw ex;
+            }
         }
     }
 
