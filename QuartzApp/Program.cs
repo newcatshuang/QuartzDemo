@@ -52,7 +52,8 @@ namespace QuartzApp
                 .Build();
 
             ITrigger trigger1 = TriggerBuilder.Create()
-                .WithCronSchedule("0 0/2 8-17 * * ?")//每天早上8点到下午5点建立一个触发器，每隔一分钟就会触发一次：
+                .WithCronSchedule("0 0/2 8-17 * * ?",//每天早上8点到下午5点建立一个触发器，每隔一分钟就会触发一次：
+                    x => x.WithMisfireHandlingInstructionDoNothing())//当一个持久的触发器因为调度器被关闭或者线程池中没有可用的线程而错过了激活时间时，不进行任何处理
                 .Build();
 
             ITrigger trigger2 = TriggerBuilder.Create()
@@ -95,6 +96,10 @@ namespace QuartzApp
     "0 15 10 ? * 6L 2002-2005" 2002年至2005年的每月的最后一个星期五上午10:15触发
     "0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发
 
+    秒和分钟的数字0到59，以及小时的值0到23。
+    每月的日期可以是0-31的任何值，但您需要注意一个月内的天数！
+    月份可以指定为0到11之间的值，或者使用字符串JAN，FEB，MAR，APR，MAY，JUN，JUL，AUG，SEP，OCT，NOV和DEC。
+    星期几可以指定为1到7之间的值（1 =星期日）或使用字符串SUN，MON，TUE，WED，THU，FRI和SAT。
 
     作者：骄傲牛
     链接：https://www.jianshu.com/p/e9ce1a7e1ed1
