@@ -18,15 +18,15 @@ namespace QuartzApp
         {
             NameValueCollection props = new NameValueCollection()
             {
-                { "quartz.jobStore.type" ,"Quartz.Simpl.RAMJobStore,Quartz" },//默认使用内存存储
+                //{ "quartz.jobStore.type" ,"Quartz.Simpl.RAMJobStore,Quartz" },//默认使用内存存储
                 { "quartz.jobStore.type","Quartz.Impl.AdoJobStore.JobStoreTX,Quartz"},//使用ado存储
-                { "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.StdAdoDelegate,Quartz" },//默认ado委托
+                //{ "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.StdAdoDelegate,Quartz" },//默认ado委托
                 { "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.SqlServerDelegate,Quartz" },//sql server ado委托//性能更好
-                { "quartz.jobStore.tablePrefix","QRTZ_"},//默认表前缀配置
+                //{ "quartz.jobStore.tablePrefix","QRTZ_"},//默认表前缀配置
                 { "quartz.jobStore.dataSource","myDS" },//ado数据源名称配置
-                { "quartz.dataSource.myDS.connectionString","Server=localhost;Database=quartz;Uid=quartznet;Pwd=quartznet" },//链接字符串
+                { "quartz.dataSource.myDS.connectionString","Data Source = .; Initial Catalog =NewcatsDB20170627; User ID = sa; Password = 123456;" },//链接字符串
 
-                { "quartz.dataSource.myDS.provider","MySql" },//ado 驱动
+                { "quartz.dataSource.myDS.provider","SqlServer" },//ado 驱动
                 //目前支持一下驱动
                 //SqlServer - .NET Framework 2.0的SQL Server驱动程序
                 //OracleODP - Oracle的Oracle驱动程序
@@ -47,13 +47,13 @@ namespace QuartzApp
 
             IJobDetail job = JobBuilder.Create<HelloWorldJob>().Build();//定义一个job
 
-            //ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
-            //    .StartNow()//立即开始
-            //    .WithSimpleSchedule(x => x//使用简单调度器
-            //        .WithIntervalInSeconds(2)//每2秒执行一次
-            //        .RepeatForever())//一直循环
-            //    .Build();
-            //await scheduler.ScheduleJob(job, trigger);//等待执行任务
+            ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
+                .StartNow()//立即开始
+                .WithSimpleSchedule(x => x//使用简单调度器
+                    .WithIntervalInMinutes(1)//每2秒执行一次
+                    .RepeatForever())//一直循环
+                .Build();
+            await scheduler.ScheduleJob(job, trigger);//等待执行任务
 
             //IDailyTimeIntervalTrigger dailyTrigger = (IDailyTimeIntervalTrigger)TriggerBuilder.Create()
             //    .StartNow()
@@ -63,28 +63,28 @@ namespace QuartzApp
             //    .Build();
             //await scheduler.ScheduleJob(job, dailyTrigger);
 
-            ICronTrigger cronTrigger = (ICronTrigger)TriggerBuilder.Create()
-                .StartNow()
-                .WithCronSchedule("* * * * * ?")
-                .Build();
-            await scheduler.ScheduleJob(job, cronTrigger);
+            //ICronTrigger cronTrigger = (ICronTrigger)TriggerBuilder.Create()
+            //    .StartNow()
+            //    .WithCronSchedule("* * * * * ?")
+            //    .Build();
+            //await scheduler.ScheduleJob(job, cronTrigger);
 
-            ISimpleTrigger simpleTrigger = (ISimpleTrigger)TriggerBuilder.Create()
-                .StartNow()
-                .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes(1)
-                    .RepeatForever())
-                .EndAt(DateBuilder.DateOf(22, 0, 0))//晚上22点结束
-                .Build();
+            //ISimpleTrigger simpleTrigger = (ISimpleTrigger)TriggerBuilder.Create()
+            //    .StartNow()
+            //    .WithSimpleSchedule(x => x
+            //        .WithIntervalInMinutes(1)
+            //        .RepeatForever())
+            //    .EndAt(DateBuilder.DateOf(22, 0, 0))//晚上22点结束
+            //    .Build();
 
-            ITrigger trigger1 = TriggerBuilder.Create()
-                .WithCronSchedule("0 0/2 8-17 * * ?",//每天早上8点到下午5点建立一个触发器，每隔一分钟就会触发一次：
-                    x => x.WithMisfireHandlingInstructionDoNothing())//当一个持久的触发器因为调度器被关闭或者线程池中没有可用的线程而错过了激活时间时，不进行任何处理
-                .Build();
+            //ITrigger trigger1 = TriggerBuilder.Create()
+            //    .WithCronSchedule("0 0/2 8-17 * * ?",//每天早上8点到下午5点建立一个触发器，每隔一分钟就会触发一次：
+            //        x => x.WithMisfireHandlingInstructionDoNothing())//当一个持久的触发器因为调度器被关闭或者线程池中没有可用的线程而错过了激活时间时，不进行任何处理
+            //    .Build();
 
-            ITrigger trigger2 = TriggerBuilder.Create()
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(10, 42))//每天在上午10:42开始执行
-                .Build();
+            //ITrigger trigger2 = TriggerBuilder.Create()
+            //    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(10, 42))//每天在上午10:42开始执行
+            //    .Build();
         }
     }
 
