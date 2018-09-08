@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Config.Binder\Config.Binder.csproj" />
     <ProjectReference Include="..\Config.FileExtensions\Config.FileExtensions.csproj" />
     <ProjectReference Include="..\Config.Json\Config.Json.csproj" />
     <ProjectReference Include="..\Config\Config.csproj" />
