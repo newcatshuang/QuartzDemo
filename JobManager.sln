@@ -37,9 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config.Test", "ConfigManage
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HangFire", "HangFire", "{9889E64F-D1F3-4358-99C3-D057CF4BE596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newcats.HangFire.HostServer", "Newcats.HangFire.HostServer\Newcats.HangFire.HostServer.csproj", "{0243ACAC-723F-48F0-AA02-2B30ABD11089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newcats.HangFire.HostServer", "Newcats.HangFire.HostServer\Newcats.HangFire.HostServer.csproj", "{0243ACAC-723F-48F0-AA02-2B30ABD11089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newcats.HangFire.Dashborad", "Newcats.HangFire.Dashborad\Newcats.HangFire.Dashborad.csproj", "{0D4A6B9D-4E88-45B4-B772-B9323981D96E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newcats.HangFire.Dashborad", "Newcats.HangFire.Dashborad\Newcats.HangFire.Dashborad.csproj", "{0D4A6B9D-4E88-45B4-B772-B9323981D96E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quartz", "Quartz", "{BE0BDE1C-B94F-401F-8DAA-72D56236AA75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newcats.JobManager.Host", "Newcats.JobManager.Host\Newcats.JobManager.Host.csproj", "{10158589-9927-4914-965B-4C6AC2BE1553}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +119,10 @@ Global
 		{0D4A6B9D-4E88-45B4-B772-B9323981D96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D4A6B9D-4E88-45B4-B772-B9323981D96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D4A6B9D-4E88-45B4-B772-B9323981D96E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10158589-9927-4914-965B-4C6AC2BE1553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10158589-9927-4914-965B-4C6AC2BE1553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10158589-9927-4914-965B-4C6AC2BE1553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10158589-9927-4914-965B-4C6AC2BE1553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +143,7 @@ Global
 		{7F699888-A05D-4C61-AF1F-E2469FCC54A2} = {EA85D448-036B-4024-B920-9C920217DDBD}
 		{0243ACAC-723F-48F0-AA02-2B30ABD11089} = {9889E64F-D1F3-4358-99C3-D057CF4BE596}
 		{0D4A6B9D-4E88-45B4-B772-B9323981D96E} = {9889E64F-D1F3-4358-99C3-D057CF4BE596}
+		{10158589-9927-4914-965B-4C6AC2BE1553} = {BE0BDE1C-B94F-401F-8DAA-72D56236AA75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BC4B63B-F487-4C1C-825B-9F8580EEF279}
