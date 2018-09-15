@@ -52,21 +52,30 @@ namespace Newcats.JobManager.Host
             try
             {
                 _scheduler.Start().GetAwaiter().GetResult();
-                //IJobDetail job = JobBuilder.Create<StoredProcedureJob>()
-                //    .WithDescription("sp job")
-                //    .StoreDurably()
-                //    .RequestRecovery()
-                //    .WithIdentity("job2", "group1")
-                //    .Build();//定义一个job
 
-                //ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
-                //    .WithIdentity("t2", "group1")
-                //    .StartNow()//立即开始
-                //    .WithSimpleSchedule(x => x//使用简单调度器
-                //        .WithIntervalInSeconds(5)//每2秒执行一次
-                //        .RepeatForever())//一直循环
-                //    .Build();
-                //_scheduler.ScheduleJob(job, trigger);//等待执行任务
+                var jobkey = JobKey.Create("job1", "group1");
+                if (_scheduler.CheckExists(jobkey).Result)
+                {
+
+                }
+                else
+                {
+                    //IJobDetail job = JobBuilder.Create<StoredProcedureJob>()
+                    //    .WithDescription("sp job")
+                    //    .StoreDurably()
+                    //    .RequestRecovery()
+                    //    .WithIdentity("job2", "group1")
+                    //    .Build();//定义一个job
+
+                    //ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
+                    //    .WithIdentity("t2", "group1")
+                    //    .StartNow()//立即开始
+                    //    .WithSimpleSchedule(x => x//使用简单调度器
+                    //        .WithIntervalInSeconds(5)//每2秒执行一次
+                    //        .RepeatForever())//一直循环
+                    //    .Build();
+                    //_scheduler.ScheduleJob(job, trigger);//等待执行任务
+                }
             }
             catch (Exception e)
             {
