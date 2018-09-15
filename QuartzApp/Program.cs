@@ -23,10 +23,10 @@ namespace QuartzApp
                 //{ "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.StdAdoDelegate,Quartz" },//默认ado委托
                 { "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.SqlServerDelegate,Quartz" },//sql server ado委托//性能更好
                 //{ "quartz.jobStore.tablePrefix","QRTZ_"},//默认表前缀配置
-                { "quartz.jobStore.dataSource","myDS" },//ado数据源名称配置
-                { "quartz.dataSource.myDS.connectionString","Data Source = .; Initial Catalog =NewcatsDB20170627; User ID = sa; Password = 123456;" },//链接字符串
+                { "quartz.jobStore.dataSource","NewcatsQuartzData" },//ado数据源名称配置
+                { "quartz.dataSource.NewcatsQuartzData.connectionString","Data Source = .; Initial Catalog =NewcatsDB20170627; User ID = sa; Password = 123456;" },//链接字符串
 
-                { "quartz.dataSource.myDS.provider","SqlServer" },//ado 驱动
+                { "quartz.dataSource.NewcatsQuartzData.provider","SqlServer" },//ado 驱动
                 //目前支持一下驱动
                 //SqlServer - .NET Framework 2.0的SQL Server驱动程序
                 //OracleODP - Oracle的Oracle驱动程序
@@ -43,14 +43,19 @@ namespace QuartzApp
 
             StdSchedulerFactory factory = new StdSchedulerFactory(props);
             IScheduler scheduler = await factory.GetScheduler();//获取调度器
-            await scheduler.Start();//启动调度器
+            //await scheduler.Start();//启动调度器
 
-            IJobDetail job = JobBuilder.Create<HelloWorldJob>().Build();//定义一个job
+            IJobDetail job = JobBuilder.Create<HelloWorldJob>()
+                .StoreDurably()
+                .RequestRecovery()
+                .WithIdentity("job2", "group")
+                .Build();//定义一个job
 
             ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
                 .StartNow()//立即开始
+                .WithIdentity("t2", "group")
                 .WithSimpleSchedule(x => x//使用简单调度器
-                    .WithIntervalInMinutes(1)//每2秒执行一次
+                    .WithIntervalInSeconds(1)//每2秒执行一次
                     .RepeatForever())//一直循环
                 .Build();
             await scheduler.ScheduleJob(job, trigger);//等待执行任务
@@ -94,7 +99,7 @@ namespace QuartzApp
         {
             try
             {
-                return Task.Run(() => Console.WriteLine($"hello world at time {DateTime.Now}"));
+                return Task.Run(() => Console.WriteLine($"你好 world at time {DateTime.Now}"));
             }
             catch (JobExecutionException ex)
             {

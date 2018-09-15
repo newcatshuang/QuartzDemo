@@ -27,6 +27,10 @@ namespace Newcats.JobManager.Host
                 x.SetDisplayName("JobManagerHostServer");
                 x.SetServiceName("JobManagerHostServer");
             });
+
+            //JobServer job = new JobServer();
+            //job.Start();
+            //Console.ReadKey();
         }
     }
 }
