@@ -11,7 +11,7 @@ using Topshelf;
 
 namespace Newcats.JobManager.Host
 {
-    public class JobServer : ServiceControl
+    public class JobServer : ServiceControl, ServiceSuspend
     {
         private readonly ILog _log;
         private ISchedulerFactory _schedulerFactory;
@@ -27,17 +27,7 @@ namespace Newcats.JobManager.Host
         {
             try
             {
-                NameValueCollection props = new NameValueCollection()
-                {
-                    { "quartz.jobStore.type","Quartz.Impl.AdoJobStore.JobStoreTX,Quartz"},//使用ado存储
-                    { "quartz.jobStore.driverDelegateType","Quartz.Impl.AdoJobStore.SqlServerDelegate,Quartz" },//sql server ado委托//性能更好
-                    { "quartz.jobStore.dataSource","NewcatsQuartzData" },//ado数据源名称配置
-                    { "quartz.dataSource.NewcatsQuartzData.connectionString","Data Source = .; Initial Catalog =NewcatsDB20170627; User ID = sa; Password = 123456;" },//链接字符串
-                    { "quartz.dataSource.NewcatsQuartzData.provider","SqlServer" },//ado 驱动
-                    { "quartz.jobStore.useProperties","true" },//配置AdoJobStore以将字符串用作JobDataMap值（推荐）
-                    { "quartz.serializer.type","json" }//ado 序列化策略//可选值为json/binary（推荐json）
-                };
-                _schedulerFactory = new StdSchedulerFactory(props);
+                _schedulerFactory = new StdSchedulerFactory();
                 _scheduler = await _schedulerFactory.GetScheduler().ConfigureAwait(false);
             }
             catch (Exception e)
@@ -45,6 +35,11 @@ namespace Newcats.JobManager.Host
                 _log.Error($"Server initialization failed: {e.Message}", e);
                 throw;
             }
+        }
+
+        public bool Start(HostControl hostControl)
+        {
+            _scheduler.ListenerManager.AddJobListener();
         }
 
         public void Start()

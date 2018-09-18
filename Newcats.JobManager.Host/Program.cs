@@ -14,15 +14,9 @@ namespace Newcats.JobManager.Host
 
             HostFactory.Run(x =>
             {
-                x.Service<JobServer>(s =>
-                {
-                    s.ConstructUsing(name => new JobServer());
-                    s.WhenStarted(d => d.Start());
-                    s.WhenStopped(d => d.Stop());
-                });
-
+                x.UseLog4Net();
                 x.RunAsLocalSystem();
-
+                x.Service<JobServer>();
                 x.SetDescription("JobManagerHostServer");
                 x.SetDisplayName("JobManagerHostServer");
                 x.SetServiceName("JobManagerHostServer");
