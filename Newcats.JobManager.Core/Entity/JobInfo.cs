@@ -103,9 +103,9 @@ namespace Newcats.JobManager.Core.Entity
         /// </summary>				
         public string UpdateName { get; set; }
 
-        ///// <summary>
-        ///// 最后更新时间
-        ///// </summary>
+        /// <summary>
+        /// 最后更新时间
+        /// </summary>
         public DateTime? UpdateTime { get; set; }
 
         /// <summary>
