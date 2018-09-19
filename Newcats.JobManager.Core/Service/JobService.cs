@@ -114,7 +114,7 @@ namespace Newcats.JobManager.Core.Service
             return _jobRepository.Update(jobId, dbUpdates) > 0;
         }
 
-        public static bool UpdateJobStatus(long jobId, string jobName, DateTime lastRunTime, DateTime nextRunTime, double executionDuration, string runLog)
+        public static bool UpdateJobStatus(long jobId, DateTime lastRunTime, DateTime nextRunTime, double executionDuration, string runLog)
         {
             bool isSuccess = false;
             using (TransactionScope trans = new TransactionScope())

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newcats.JobManager.Core.Service;
 using Quartz;
 
 namespace Newcats.JobManager.Host
@@ -14,18 +13,19 @@ namespace Newcats.JobManager.Host
 
         public Task JobExecutionVetoed(IJobExecutionContext context, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task JobToBeExecuted(IJobExecutionContext context, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException, CancellationToken cancellationToken = default(CancellationToken))
         {
-            System.Guid BackgroundJobId = System.Guid.Empty;
-            Guid.TryParse(context.JobDetail.Key.Name, out BackgroundJobId);
+            //System.Guid BackgroundJobId = System.Guid.Empty;
+            //Guid.TryParse(context.JobDetail.Key.Name, out BackgroundJobId);
+            long jobId = Convert.ToInt64(context.JobDetail.Key.Name);
             DateTime NextFireTimeUtc = TimeZoneInfo.ConvertTimeFromUtc(context.NextFireTimeUtc.Value.DateTime, TimeZoneInfo.Local);
             DateTime FireTimeUtc = TimeZoneInfo.ConvertTimeFromUtc(context.FireTimeUtc.DateTime, TimeZoneInfo.Local);
 
@@ -59,7 +59,11 @@ namespace Newcats.JobManager.Host
             {
                 LogContent = LogContent + " EX:" + jobException.ToString();
             }
-            new BackgroundJobService().UpdateBackgroundJobStatus(BackgroundJobId, JobName, FireTimeUtc, NextFireTimeUtc, TotalSeconds, LogContent);
+
+            //new BackgroundJobService().UpdateBackgroundJobStatus(BackgroundJobId, JobName, FireTimeUtc, NextFireTimeUtc, TotalSeconds, LogContent);
+
+            JobService.UpdateJobStatus(jobId, FireTimeUtc, NextFireTimeUtc, TotalSeconds, LogContent);
+            return Task.CompletedTask;
         }
     }
 }

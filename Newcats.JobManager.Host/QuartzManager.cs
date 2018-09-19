@@ -91,12 +91,24 @@ namespace Newcats.JobManager.Host
                 }
                 else
                 {
-                    new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.AssemblyName + jobInfo.ClassName + "无效，无法启动该任务");
+                    //new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.AssemblyName + jobInfo.ClassName + "无效，无法启动该任务");
+                    JobService.AddLog(new JobLog
+                    {
+                        JobId = jobInfo.Id,
+                        ExecutionTime = DateTime.Now,
+                        RunLog = $"{jobInfo.AssemblyName}{jobInfo.ClassName}无效，无法启动该任务！"
+                    });
                 }
             }
             else
             {
-                new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.CronExpression + "不是正确的Cron表达式,无法启动该任务");
+                //new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.CronExpression + "不是正确的Cron表达式,无法启动该任务");
+                JobService.AddLog(new JobLog
+                {
+                    JobId = jobInfo.Id,
+                    ExecutionTime = DateTime.Now,
+                    RunLog = $"{jobInfo.CronExpression}不是正确的Cron表达式,无法启动该任务！"
+                });
             }
         }
 
@@ -107,7 +119,7 @@ namespace Newcats.JobManager.Host
         /// <param name="Scheduler"></param>
         public async void JobScheduler(IScheduler Scheduler)
         {
-            List<JobInfo> list = new JobService().GeAllowScheduleJobInfoList();
+            IEnumerable<JobInfo> list = JobService.GetAllowScheduleJobs();
             if (list != null && list.Any())
             {
                 foreach (JobInfo jobInfo in list)
@@ -120,16 +132,16 @@ namespace Newcats.JobManager.Host
                             ScheduleJob(Scheduler, jobInfo);
                             if (await Scheduler.CheckExists(jobKey) == false)
                             {
-                                new JobService().UpdateBackgroundJobState(jobInfo.Id, 0);
+                                JobService.UpdateJobState(jobInfo.Id, JobState.Stop);
                             }
                             else
                             {
-                                new JobService().UpdateBackgroundJobState(jobInfo.Id, 1);
+                                JobService.UpdateJobState(jobInfo.Id, JobState.Running);
                             }
                         }
                         else if (jobInfo.State == JobState.Stopping)
                         {
-                            new JobService().UpdateBackgroundJobState(jobInfo.Id, 0);
+                            JobService.UpdateJobState(jobInfo.Id, JobState.Stop);
                         }
                     }
                     else
@@ -137,11 +149,11 @@ namespace Newcats.JobManager.Host
                         if (jobInfo.State == JobState.Stopping)
                         {
                             await Scheduler.DeleteJob(jobKey);
-                            new JobService().UpdateBackgroundJobState(jobInfo.Id, 0);
+                            JobService.UpdateJobState(jobInfo.Id, JobState.Stop);
                         }
                         else if (jobInfo.State == JobState.Starting)
                         {
-                            new JobService().UpdateBackgroundJobState(jobInfo.Id, 1);
+                            JobService.UpdateJobState(jobInfo.Id, JobState.Running);
                         }
                     }
                 }

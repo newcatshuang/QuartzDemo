@@ -67,7 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuartzManager.cs" />
     <Compile Include="SchedulerJobListener.cs" />
-    <Compile Include="StoredProcedureJob.cs" />
+    <Compile Include="SystemJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
