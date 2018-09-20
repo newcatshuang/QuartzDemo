@@ -4,7 +4,7 @@ using Newcats.JobManager.Core.Repository;
 namespace Newcats.JobManager.Core.Entity
 {
     [TableName("JobInfo")]
-    public class JobInfo : IEntity
+    public class JobInfoEntity : IEntity
     {
         /// <summary>
         /// JobID

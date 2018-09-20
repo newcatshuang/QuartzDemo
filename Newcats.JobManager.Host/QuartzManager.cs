@@ -70,7 +70,7 @@ namespace Newcats.JobManager.Host
         /// </summary>
         /// <param name="scheduler"></param>
         /// <param name="jobInfo"></param>
-        public void ScheduleJob(IScheduler scheduler, JobInfo jobInfo)
+        public void ScheduleJob(IScheduler scheduler, JobInfoEntity jobInfo)
         {
             if (ValidExpression(jobInfo.CronExpression))
             {
@@ -92,7 +92,7 @@ namespace Newcats.JobManager.Host
                 else
                 {
                     //new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.AssemblyName + jobInfo.ClassName + "无效，无法启动该任务");
-                    JobService.AddLog(new JobLog
+                    JobService.AddLog(new JobLogEntity
                     {
                         JobId = jobInfo.Id,
                         ExecutionTime = DateTime.Now,
@@ -103,7 +103,7 @@ namespace Newcats.JobManager.Host
             else
             {
                 //new JobService().WriteBackgroundJoLog(jobInfo.Id, jobInfo.Name, DateTime.Now, jobInfo.CronExpression + "不是正确的Cron表达式,无法启动该任务");
-                JobService.AddLog(new JobLog
+                JobService.AddLog(new JobLogEntity
                 {
                     JobId = jobInfo.Id,
                     ExecutionTime = DateTime.Now,
@@ -119,10 +119,10 @@ namespace Newcats.JobManager.Host
         /// <param name="Scheduler"></param>
         public async void JobScheduler(IScheduler Scheduler)
         {
-            IEnumerable<JobInfo> list = JobService.GetAllowScheduleJobs();
+            IEnumerable<JobInfoEntity> list = JobService.GetAllowScheduleJobs();
             if (list != null && list.Any())
             {
-                foreach (JobInfo jobInfo in list)
+                foreach (JobInfoEntity jobInfo in list)
                 {
                     JobKey jobKey = new JobKey(jobInfo.Id.ToString(), jobInfo.Id.ToString() + "Group");
                     if (await Scheduler.CheckExists(jobKey) == false)
