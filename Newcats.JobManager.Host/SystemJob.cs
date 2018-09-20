@@ -20,14 +20,16 @@ namespace Newcats.JobManager.Host
             }
             catch (Exception ex)
             {
-                JobExecutionException e2 = new JobExecutionException(ex);
-                e2.RefireImmediately = true;
+                JobExecutionException e2 = new JobExecutionException(ex)
+                {
+                    RefireImmediately = true
+                };
             }
             finally
             {
                 _logger.InfoFormat("ManagerJob Execute end ");
             }
-            Console.WriteLine($"hello system job at {DateTime.Now}");
+            //Console.WriteLine($"hello system job at {DateTime.Now}");
             return Task.CompletedTask;
         }
     }

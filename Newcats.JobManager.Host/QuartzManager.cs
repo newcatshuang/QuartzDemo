@@ -24,27 +24,18 @@ namespace Newcats.JobManager.Host
             Type type = null;
             try
             {
-                Assembly assembly = Assembly.LoadFrom(GetAbsolutePath(Path.Combine("JobItems", assemblyName)));
-                if (assembly == null)
+                string file = GetAbsolutePath(Path.Combine("JobItems", assemblyName));
+                if (!File.Exists(file))
                 {
-                    assembly = Assembly.LoadFrom(GetAbsolutePath("assemblyName"));
+                    file = GetAbsolutePath(assemblyName);
                 }
+                Assembly assembly = Assembly.LoadFrom(file);
                 type = assembly.GetType(className, true, true);
             }
             catch
             {
             }
             return type;
-        }
-
-        /// <summary>
-        /// 校验字符串是否为正确的Cron表达式
-        /// </summary>
-        /// <param name="cronExpression">带校验表达式</param>
-        /// <returns></returns>
-        public bool ValidExpression(string cronExpression)
-        {
-            return CronExpression.IsValidExpression(cronExpression);
         }
 
         /// <summary>
@@ -74,7 +65,7 @@ namespace Newcats.JobManager.Host
         /// <param name="jobInfo"></param>
         public void ScheduleJob(IScheduler scheduler, JobInfoEntity jobInfo)
         {
-            if (ValidExpression(jobInfo.CronExpression))
+            if (CronExpression.IsValidExpression(jobInfo.CronExpression))
             {
                 Type type = GetClassInfo(jobInfo.AssemblyName, jobInfo.ClassName);
                 if (type != null)
@@ -98,7 +89,7 @@ namespace Newcats.JobManager.Host
                     {
                         JobId = jobInfo.Id,
                         ExecutionTime = DateTime.Now,
-                        RunLog = $"{jobInfo.AssemblyName}{jobInfo.ClassName}无效，无法启动该任务！"
+                        RunLog = $"[{jobInfo.AssemblyName}]/[{jobInfo.ClassName}]无效，无法启动该任务！"
                     });
                 }
             }
@@ -109,7 +100,7 @@ namespace Newcats.JobManager.Host
                 {
                     JobId = jobInfo.Id,
                     ExecutionTime = DateTime.Now,
-                    RunLog = $"{jobInfo.CronExpression}不是正确的Cron表达式,无法启动该任务！"
+                    RunLog = $"[{jobInfo.CronExpression}]不是正确的Cron表达式,无法启动该任务！"
                 });
             }
         }
