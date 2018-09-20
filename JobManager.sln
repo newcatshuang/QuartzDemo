@@ -47,8 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newcats.JobManager.Host", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Newcats.JobManager.Core", "Newcats.JobManager.Core\Newcats.JobManager.Core.csproj", "{40E9658B-9078-4E0D-B5E8-D03978A7BFE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newcats.JobManager.JobA", "Newcats.JobManager.JobA\Newcats.JobManager.JobA.csproj", "{5222609C-1CC4-49C2-BC9C-F4D670F27C71}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,10 +129,6 @@ Global
 		{40E9658B-9078-4E0D-B5E8-D03978A7BFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40E9658B-9078-4E0D-B5E8-D03978A7BFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40E9658B-9078-4E0D-B5E8-D03978A7BFE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5222609C-1CC4-49C2-BC9C-F4D670F27C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5222609C-1CC4-49C2-BC9C-F4D670F27C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5222609C-1CC4-49C2-BC9C-F4D670F27C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5222609C-1CC4-49C2-BC9C-F4D670F27C71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,7 +151,6 @@ Global
 		{0D4A6B9D-4E88-45B4-B772-B9323981D96E} = {9889E64F-D1F3-4358-99C3-D057CF4BE596}
 		{10158589-9927-4914-965B-4C6AC2BE1553} = {BE0BDE1C-B94F-401F-8DAA-72D56236AA75}
 		{40E9658B-9078-4E0D-B5E8-D03978A7BFE7} = {BE0BDE1C-B94F-401F-8DAA-72D56236AA75}
-		{5222609C-1CC4-49C2-BC9C-F4D670F27C71} = {BE0BDE1C-B94F-401F-8DAA-72D56236AA75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BC4B63B-F487-4C1C-825B-9F8580EEF279}
