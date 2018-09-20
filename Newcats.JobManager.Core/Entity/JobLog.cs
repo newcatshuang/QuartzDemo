@@ -7,14 +7,14 @@ namespace Newcats.JobManager.Core.Entity
     public class JobLogEntity : IEntity
     {
         /// <summary>
-        /// LogId
+        /// LogId(主键/自增)
         /// </summary>				
         [PrimaryKey]
         [AutoIncrement]
         public long Id { get; set; }
 
         /// <summary>
-        /// JobID
+        /// JobId(表JobInfo.Id)
         /// </summary>
         public long JobId { get; set; }
 

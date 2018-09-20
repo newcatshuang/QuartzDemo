@@ -7,14 +7,14 @@ namespace Newcats.JobManager.Core.Entity
     public class JobInfoEntity : IEntity
     {
         /// <summary>
-        /// JobID
+        /// JobId(主键/自增)
         /// </summary>				
         [PrimaryKey]
         [AutoIncrement]
         public long Id { get; set; }
 
         /// <summary>
-        /// Job类型
+        /// Job类型(0.业务，1.测试，2.系统)
         /// </summary>
         public JobType JobType { get; set; }
 
@@ -69,7 +69,7 @@ namespace Newcats.JobManager.Core.Entity
         public int RunCount { get; set; }
 
         /// <summary>
-        /// 状态  0-停止  1-运行   3-正在启动中...   5-停止中...
+        /// 状态(0.停止，1.运行，3.启动中，5.停止中)
         /// </summary>
         public JobState State { get; set; }
 
@@ -89,7 +89,7 @@ namespace Newcats.JobManager.Core.Entity
         public string CreateName { get; set; }
 
         /// <summary>
-        /// 创建日期时间
+        /// 创建时间
         /// </summary>				
         public DateTime? CreateTime { get; set; }
 
@@ -109,7 +109,7 @@ namespace Newcats.JobManager.Core.Entity
         public DateTime? UpdateTime { get; set; }
 
         /// <summary>
-        /// 是否删除 0-未删除   1-已删除
+        /// 是否删除
         /// </summary>				
         public bool IsDelete { get; set; }
     }
