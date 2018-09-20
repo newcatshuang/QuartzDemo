@@ -24,7 +24,7 @@ namespace Newcats.JobManager.Host
 
             //JobServer job = new JobServer();
             //job.Start();
-            //Console.ReadKey();
+            Console.ReadKey();
         }
     }
 }

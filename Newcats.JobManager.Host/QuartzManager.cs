@@ -24,9 +24,11 @@ namespace Newcats.JobManager.Host
             Type type = null;
             try
             {
-                assemblyName = GetAbsolutePath(assemblyName);
-                Assembly assembly = null;
-                assembly = Assembly.LoadFrom(assemblyName);
+                Assembly assembly = Assembly.LoadFrom(GetAbsolutePath(Path.Combine("JobItems", assemblyName)));
+                if (assembly == null)
+                {
+                    assembly = Assembly.LoadFrom(GetAbsolutePath("assemblyName"));
+                }
                 type = assembly.GetType(className, true, true);
             }
             catch
